@@ -496,7 +496,9 @@ Doesn't use rake, calls rspec directly."
           (file-exists-p (concat root "tmp/spring/spring.pid"))
           ;; 0.9.2+
           (file-exists-p (concat temporary-file-directory "spring/"
-                                 (md5 (substring root 0 -1)) ".pid"))))))
+                                 (md5 (substring root 0 -1)) ".pid"))
+          (string-match "Spring is running:"
+                        (shell-command-to-string "spring status"))))))
 
 (defun rspec2-p ()
   (or (string-match "rspec" rspec-spec-command)
