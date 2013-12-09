@@ -517,13 +517,14 @@ Doesn't use rake, calls rspec directly."
 
 (defun rspec-runner ()
   "Returns command line to run rspec"
-  (let ((bundle-command (if (rspec-bundle-p) "bundle exec " ""))
+  (let ((bundle-command (if (rspec-bundle-p) "bundle exec " nil))
         (zeus-command (if (rspec-zeus-p) "zeus " nil))
         (spring-command (if (rspec-spring-p) "spring " nil)))
-    (concat (or zeus-command spring-command bundle-command)
-            (if (rspec-rake-p)
-                (concat rspec-rake-command " spec")
-              rspec-spec-command))))
+    (concat
+     zeus-command bundle-command spring-command
+     (if (rspec-rake-p)
+         (concat rspec-rake-command " spec")
+       rspec-spec-command))))
 
 (defun rspec-runner-options (&optional opts)
   "Returns string of options for command line"
