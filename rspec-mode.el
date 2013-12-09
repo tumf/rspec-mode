@@ -539,7 +539,7 @@ Doesn't use rake, calls rspec directly."
 (defun rspec-runner-target (target)
   "Returns target file/directory wrapped in SPEC if using rake"
   (let ((use-rake (rspec-rake-p)))
-    (concat (when use-rake "SPEC=\'") target (when use-rake "\'"))))
+    target))
 
 ;;;###autoload
 (defun rspec-buffer-is-spec-p ()
