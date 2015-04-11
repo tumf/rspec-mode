@@ -335,12 +335,12 @@ in long-running test suites."
   "Runs the specified example at the point of the current buffer."
   (interactive)
   (rspec-run-single-file
-   (rspec-spec-file-for (buffer-file-name))
-   (rspec-core-options)
-   (concat "--line "
-           (save-restriction
-             (widen)
-             (number-to-string (line-number-at-pos))))))
+   (cons
+    (rspec-spec-file-for (buffer-file-name))
+    (save-restriction
+      (widen)
+      (number-to-string (line-number-at-pos))))
+   (rspec-core-options)))
 
 (defun rspec-dired-verify ()
   "Runs all specs in the current directory."
