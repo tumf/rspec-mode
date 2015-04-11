@@ -537,12 +537,19 @@ Doesn't use rake, calls rspec directly."
             (when use-rake "\'"))))
 
 (defun rspec-runner-target (target)
-  "Returns target file/directory wrapped in SPEC if using rake"
+  "Processes TARGET to pass it to the runner.
+TARGET can be a file, a directory, a list of such,
+or a cons (FILE . LINE), to run one example."
   (let ((use-rake (rspec-rake-p)))
     (concat (when use-rake "SPEC=\'")
-            target
+            (if (listp target)
+                (if (listp (cdr target))
+                    (mapconcat #'shell-quote-argument target " ")
+                  (concat (shell-quote-argument (car target))
+                          ":"
+                          (cdr target)))
+              (shell-quote-argument target))
             (when use-rake "\'"))))
-
 ;;;###autoload
 (defun rspec-buffer-is-spec-p ()
   "Returns true if the current buffer is a spec"
