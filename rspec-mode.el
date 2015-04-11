@@ -485,7 +485,7 @@ Doesn't use rake, calls rspec directly."
   (and rspec-use-rake-when-possible
        ;; Looks inefficient, but the calculation of the root is quite
        ;; fast. Unless this is used over TRAMP, I suppose.
-       (not (rspec-spring-p))
+       ;;(not (rspec-spring-p))
        (file-exists-p (concat (rspec-project-root) "Rakefile"))))
 
 (defun rspec-spring-p ()
